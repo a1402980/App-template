@@ -1,55 +1,54 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { RootStackParamList, MainTabParamList } from '../types/navigation';
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigationTheme, useThemeColors } from '../utils/theme';
-import { useTheme } from '../contexts/ThemeContext';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { RootStackParamList, MainTabParamList } from "../types/navigation";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigationTheme, useThemeColors } from "../utils/theme";
 
 // Import screens (we'll create these next)
-import HomeScreen from '../screens/HomeScreen';
-import NewsScreen from '../screens/NewsScreen';
-import ProductsScreen from '../screens/ProductsScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import SettingsScreen from '../screens/SettingsScreen';
-import NewsDetailScreen from '../screens/NewsDetailScreen';
-import ProductDetailScreen from '../screens/ProductDetailScreen';
-import ContactScreen from '../screens/ContactScreen';
+import HomeScreen from "../screens/HomeScreen";
+import NewsScreen from "../screens/NewsScreen";
+import ProductsScreen from "../screens/ProductsScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+import SettingsScreen from "../screens/SettingsScreen";
+import NewsDetailScreen from "../screens/NewsDetailScreen";
+import ProductDetailScreen from "../screens/ProductDetailScreen";
+import ContactScreen from "../screens/ContactScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 const MainTabs = () => {
   const colors = useThemeColors();
-  
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName: keyof typeof Ionicons.glyphMap = 'home';
+          let iconName: keyof typeof Ionicons.glyphMap = "home";
 
           switch (route.name) {
-            case 'Home':
-              iconName = focused ? 'home' : 'home-outline';
+            case "Home":
+              iconName = focused ? "home" : "home-outline";
               break;
-            case 'News':
-              iconName = focused ? 'newspaper' : 'newspaper-outline';
+            case "News":
+              iconName = focused ? "newspaper" : "newspaper-outline";
               break;
-            case 'Products':
-              iconName = focused ? 'grid' : 'grid-outline';
+            case "Products":
+              iconName = focused ? "grid" : "grid-outline";
               break;
-            case 'Profile':
-              iconName = focused ? 'person' : 'person-outline';
+            case "Profile":
+              iconName = focused ? "person" : "person-outline";
               break;
-            case 'Settings':
-              iconName = focused ? 'settings' : 'settings-outline';
+            case "Settings":
+              iconName = focused ? "settings" : "settings-outline";
               break;
-            case 'Contact':
-              iconName = focused ? 'mail' : 'mail-outline';
+            case "Contact":
+              iconName = focused ? "mail" : "mail-outline";
               break;
             default:
-              iconName = 'help-outline';
+              iconName = "help-outline";
           }
 
           return <Ionicons name={iconName as any} size={size} color={color} />;
@@ -70,15 +69,19 @@ const MainTabs = () => {
       <Tab.Screen name="News" component={NewsScreen} />
       <Tab.Screen name="Products" component={ProductsScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen
+        name="Contact"
+        component={ContactScreen}
+        initialParams={{ url: "https://crasman.fi" }}
+      />
       <Tab.Screen name="Settings" component={SettingsScreen} />
-      <Tab.Screen name="Contact" component={ContactScreen} />
     </Tab.Navigator>
   );
 };
 
 const AppNavigator = () => {
   const navigationTheme = useNavigationTheme();
-  
+
   return (
     <NavigationContainer theme={navigationTheme}>
       <Stack.Navigator
@@ -88,13 +91,13 @@ const AppNavigator = () => {
           },
           headerTintColor: navigationTheme.colors.text,
           headerTitleStyle: {
-            fontWeight: 'bold',
+            fontWeight: "bold",
           },
         }}
       >
-        <Stack.Screen 
-          name="MainTabs" 
-          component={MainTabs} 
+        <Stack.Screen
+          name="MainTabs"
+          component={MainTabs}
           options={{ headerShown: false }}
         />
         <Stack.Screen name="NewsDetail" component={NewsDetailScreen} />
@@ -106,4 +109,4 @@ const AppNavigator = () => {
   );
 };
 
-export default AppNavigator; 
+export default AppNavigator;

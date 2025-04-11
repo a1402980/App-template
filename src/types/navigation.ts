@@ -12,7 +12,7 @@ export type MainTabParamList = {
   Products: undefined;
   Profile: undefined;
   Settings: undefined;
-  Contact: undefined;
+  Contact: { url: string };
 };
 
 // Combined navigation types for easier navigation
@@ -23,4 +23,4 @@ export type CombinedNavigationParamList = RootStackParamList & {
 
 export type RootNavigationProp = {
   navigate: (screen: keyof CombinedNavigationParamList, params?: any) => void;
-}; 
+};
